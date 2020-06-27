@@ -19,6 +19,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.firebase.ml.vision.common.FirebaseVisionPoint;
@@ -74,6 +75,8 @@ public class FaceGraphic extends Graphic {
      */
     @Override
     public void draw(Canvas canvas) {
+        Toast ifx = Toast.makeText(getApplicationContext(), "PlPlPlPl.", Toast.LENGTH_SHORT);
+
         FirebaseVisionFace face = firebaseVisionFace;
         if (face == null) {
             return;

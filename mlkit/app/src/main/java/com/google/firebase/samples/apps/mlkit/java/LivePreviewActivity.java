@@ -91,13 +91,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         List<String> options = new ArrayList<>();
         options.add(FACE_CONTOUR);
         options.add(FACE_DETECTION);
-        options.add(AUTOML_IMAGE_LABELING);
-        options.add(OBJECT_DETECTION);
-        options.add(TEXT_DETECTION);
-        options.add(BARCODE_DETECTION);
-        options.add(IMAGE_LABEL_DETECTION);
-        options.add(CLASSIFICATION_QUANT);
-        options.add(CLASSIFICATION_FLOAT);
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style,
                 options);
