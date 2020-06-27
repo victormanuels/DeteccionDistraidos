@@ -1,11 +1,9 @@
 package com.google.firebase.samples.apps.mlkit.java.facedetection;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -29,7 +27,7 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
     private static final String TAG = "FaceContourDetectorProc";
 
     private final FirebaseVisionFaceDetector detector;
-Context that;
+
     public FaceContourDetectorProcessor() {
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()

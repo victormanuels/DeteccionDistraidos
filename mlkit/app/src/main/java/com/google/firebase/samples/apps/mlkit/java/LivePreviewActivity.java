@@ -198,6 +198,9 @@ public final class LivePreviewActivity extends AppCompatActivity
                     Log.d(TAG, "resume: graphOverlay is null");
                 }
                 binding.firePreview.start(cameraSource, binding.fireFaceOverlay);
+
+               // binding.firePreview.setVisibility(View.INVISIBLE);
+
             } catch (IOException e) {
                 Log.e(TAG, "Unable to start camera source.", e);
                 cameraSource.release();

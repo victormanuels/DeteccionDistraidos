@@ -18,13 +18,11 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode,face,ocr,ica" />
 
-        <activity
-            android:name="com.google.firebase.samples.apps.mlkit.java.ChooserActivity"/>
 
 
 
         <activity
-            android:name="com.google.firebase.samples.apps.mlkit.EntryChoiceActivity"
+            android:name="com.google.firebase.samples.apps.mlkit.java.ChooserActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

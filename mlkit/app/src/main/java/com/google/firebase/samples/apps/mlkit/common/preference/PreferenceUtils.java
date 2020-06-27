@@ -3,6 +3,7 @@ package com.google.firebase.samples.apps.mlkit.common.preference;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -26,7 +27,9 @@ public class PreferenceUtils {
 
   @Nullable
   public static SizePair getCameraPreviewSizePair(Context context, int cameraId) {
-    if (!(cameraId == CameraSource.CAMERA_FACING_BACK || cameraId == CameraSource.CAMERA_FACING_FRONT)) {
+      Toast ifx = Toast.makeText(context, "Please enter name in correct format.", Toast.LENGTH_SHORT);
+
+      if (!(cameraId == CameraSource.CAMERA_FACING_BACK || cameraId == CameraSource.CAMERA_FACING_FRONT)) {
         throw new RuntimeException("Invalid cameraId: " + cameraId);
     }
     String previewSizePrefKey;
