@@ -53,6 +53,9 @@ public class FaceGraphic extends Graphic {
         super(overlay);
 
         firebaseVisionFace = face;
+        float lol= face.getRightEyeOpenProbability();
+        System.out.println(lol);
+
         this.facing = facing;
         this.overlayBitmap = overlayBitmap;
         final int selectedColor = Color.WHITE;

@@ -20,12 +20,15 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -66,6 +69,8 @@ public final class LivePreviewActivity extends AppCompatActivity
     private CameraSource cameraSource = null;
     private String selectedModel = FACE_CONTOUR;
     private ActivityLivePreviewBinding binding;
+    private Button buttonInvisible;
+    private Boolean buttonInvisibleB = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,35 @@ public final class LivePreviewActivity extends AppCompatActivity
         Log.d(TAG, "onCreate");
         binding = ActivityLivePreviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        buttonInvisible = findViewById(R.id.buttonInvisible);
+
+        buttonInvisible.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                buttonInvisibleB = !buttonInvisibleB;
+
+                if (buttonInvisibleB) {
+                    // Gets linearlayout
+                    ViewGroup.LayoutParams params = binding.firePreview.getLayoutParams();
+                    int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 311, getResources().getDisplayMetrics());
+                    int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 399, getResources().getDisplayMetrics());
+
+                    params.height = height;
+                    params.width = width;
+                    binding.firePreview.setLayoutParams(params);
+
+                }else{
+                    ViewGroup.LayoutParams params = binding.firePreview.getLayoutParams();
+
+                    params.height = 1;
+                    params.width = 1;
+                    binding.firePreview.setLayoutParams(params);
+                }
+            }
+        });
+
 
         List<String> options = new ArrayList<>();
         options.add(FACE_CONTOUR);
@@ -199,7 +233,8 @@ public final class LivePreviewActivity extends AppCompatActivity
                 }
                 binding.firePreview.start(cameraSource, binding.fireFaceOverlay);
 
-               // binding.firePreview.setVisibility(View.INVISIBLE);
+
+
 
             } catch (IOException e) {
                 Log.e(TAG, "Unable to start camera source.", e);
