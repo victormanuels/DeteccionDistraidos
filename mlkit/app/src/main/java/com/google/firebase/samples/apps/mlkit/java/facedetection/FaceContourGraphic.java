@@ -32,8 +32,6 @@ public class FaceContourGraphic extends Graphic {
 
         this.firebaseVisionFace = face;
 
-        float lol= face.getRightEyeOpenProbability();
-        System.out.println(lol);
         final int selectedColor = Color.WHITE;
 
         facePositionPaint = new Paint();
@@ -63,7 +61,6 @@ public class FaceContourGraphic extends Graphic {
         float x = translateX(face.getBoundingBox().centerX());
         float y = translateY(face.getBoundingBox().centerY());
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, facePositionPaint);
-        System.out.println("ENTRAENTRAENTRAENTRAENTRAENTRAENTRAENTRAENTRAENTRAENTRA");
 
         canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
 

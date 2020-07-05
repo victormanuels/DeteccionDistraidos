@@ -43,7 +43,6 @@ import com.google.firebase.samples.apps.mlkit.R;
 import com.google.firebase.samples.apps.mlkit.common.CameraSource;
 import com.google.firebase.samples.apps.mlkit.databinding.ActivityLivePreviewBinding;
 import com.google.firebase.samples.apps.mlkit.java.facedetection.FaceContourDetectorProcessor;
-import com.google.firebase.samples.apps.mlkit.java.facedetection.FaceDetectionProcessor;
 import com.google.firebase.samples.apps.mlkit.common.preference.SettingsActivity;
 import com.google.firebase.samples.apps.mlkit.common.preference.SettingsActivity.LaunchSource;
 
@@ -60,7 +59,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         implements OnRequestPermissionsResultCallback,
         OnItemSelectedListener,
         CompoundButton.OnCheckedChangeListener {
-    private static final String FACE_DETECTION = "Face Detection";
 
     private static final String FACE_CONTOUR = "Face Contour";
     private static final String TAG = "LivePreviewActivity";
@@ -71,14 +69,14 @@ public final class LivePreviewActivity extends AppCompatActivity
     private ActivityLivePreviewBinding binding;
     private Button buttonInvisible;
     private Boolean buttonInvisibleB = true;
-
+    LivePreviewActivity view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         binding = ActivityLivePreviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        this.view=this;
         buttonInvisible = findViewById(R.id.buttonInvisible);
 
         buttonInvisible.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +108,6 @@ public final class LivePreviewActivity extends AppCompatActivity
 
         List<String> options = new ArrayList<>();
         options.add(FACE_CONTOUR);
-        options.add(FACE_DETECTION);
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style,
                 options);
@@ -195,14 +192,11 @@ public final class LivePreviewActivity extends AppCompatActivity
         try {
             switch (model) {
 
-                case FACE_DETECTION:
-                    Log.i(TAG, "Using Face Detector Processor");
-                    cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor(getResources()));
-                    break;
+
 
                 case FACE_CONTOUR:
                     Log.i(TAG, "Using Face Contour Detector Processor");
-                    cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor());
+                    cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor(this.view));
                     break;
                 default:
                     Log.e(TAG, "Unknown model: " + model);

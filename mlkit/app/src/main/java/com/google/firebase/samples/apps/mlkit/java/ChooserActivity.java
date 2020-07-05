@@ -67,10 +67,28 @@ public final class ChooserActivity extends AppCompatActivity
 
         mBinding.testActivityListView.setAdapter(adapter);
         mBinding.testActivityListView.setOnItemClickListener(this);
-
         if (!allPermissionsGranted()) {
             getRuntimePermissions();
         }
+
+
+        /*
+        *    barChart = (BarChart) findViewById(R.id.barChart);
+        final ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(0, new float[]{ 10, 10 ,10,10,10,10,10,10,10,10}));
+         BarDataSet barDataSet = new BarDataSet(entries, "Inducesmile");
+        barDataSet.setColors(Color.BLUE, Color.RED,Color.BLUE);
+        barDataSet.setBarBorderWidth(0.9f);
+        BarData barData = new BarData(barDataSet);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        barChart.setData(barData);
+        barChart.setFitBars(true);
+        // barChart.animateXY(5000, 5000);
+        barChart.invalidate();
+        final float[] entry = {10};
+        * */
     }
 
     @Override
