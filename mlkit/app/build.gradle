@@ -44,6 +44,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.media:media:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.opencsv:opencsv:4.6' // Here is opencsv library
 
     // ML Kit dependencies
     implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
