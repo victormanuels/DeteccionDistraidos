@@ -66,13 +66,6 @@
                 android:layout_weight="1"
                 android:text="Remover Camara" />
 
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Guardar" />
-
 
         </LinearLayout>
 

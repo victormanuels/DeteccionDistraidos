@@ -72,24 +72,19 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
         final String uniqueId = UUID.randomUUID().toString();
 
 
-        Button buttonSave = (Button) view.findViewById(R.id.buttonSave);
+  /*      Button buttonSave = (Button) view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-try{
-    barChart.saveToGallery("test.png", 50);
 
-}catch (Exception e){
-    System.out.println(e);
-}
 
                 saveBar(uniqueId);
             }
 
 
         });
-
+*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

@@ -89,21 +89,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         buttonInvisible = findViewById(R.id.buttonInvisible);
 
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            System.out.println("LO");
-        }else{
-            System.out.println("LO");
-        }
-
-        try{
-
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "testfile.txt");
-            System.out.println("");
-        }catch (Exception e){
-            System.out.println("");
-        }
 
 
 

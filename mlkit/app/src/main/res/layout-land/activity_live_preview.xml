@@ -60,12 +60,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Guardar" />
-
-            <Button
                 android:id="@+id/buttonInvisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
