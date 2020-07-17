@@ -13,12 +13,16 @@
 // limitations under the License.
 package com.google.firebase.samples.apps.mlkit.java;
 
+import android.Manifest;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -33,6 +37,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
@@ -46,6 +51,9 @@ import com.google.firebase.samples.apps.mlkit.java.facedetection.FaceContourDete
 import com.google.firebase.samples.apps.mlkit.common.preference.SettingsActivity;
 import com.google.firebase.samples.apps.mlkit.common.preference.SettingsActivity.LaunchSource;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +78,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     private Button buttonInvisible;
     private Boolean buttonInvisibleB = true;
     LivePreviewActivity view;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +88,30 @@ public final class LivePreviewActivity extends AppCompatActivity
         this.view=this;
         buttonInvisible = findViewById(R.id.buttonInvisible);
 
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            System.out.println("LO");
+        }else{
+            System.out.println("LO");
+        }
+
+        try{
+
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "testfile.txt");
+            System.out.println("");
+        }catch (Exception e){
+            System.out.println("");
+        }
+
+
+
+
         buttonInvisible.setOnClickListener(new View.OnClickListener() {
+
+
+
 
             @Override
             public void onClick(View view) {
@@ -91,8 +123,8 @@ public final class LivePreviewActivity extends AppCompatActivity
                     int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 311, getResources().getDisplayMetrics());
                     int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 399, getResources().getDisplayMetrics());
 
-                    params.height = height;
-                    params.width = width;
+                    params.height = ActionBar.LayoutParams.MATCH_PARENT;
+                    params.width = ActionBar.LayoutParams.MATCH_PARENT;;
                     binding.firePreview.setLayoutParams(params);
 
                 }else{
@@ -108,14 +140,7 @@ public final class LivePreviewActivity extends AppCompatActivity
 
         List<String> options = new ArrayList<>();
         options.add(FACE_CONTOUR);
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_style,
-                options);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        binding.spinner.setAdapter(dataAdapter);
-        binding.spinner.setOnItemSelectedListener(this);
+
 
         binding.facingSwitch.setOnCheckedChangeListener(this);
         // Hide the toggle button if there is only 1 camera
@@ -128,6 +153,19 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             getRuntimePermissions();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putBoolean("MyBoolean", true);
+        savedInstanceState.putDouble("myDouble", 1.9);
+        savedInstanceState.putInt("MyInt", 1);
+        savedInstanceState.putString("MyString", "Welcome back to Android");
+        // etc.
     }
 
     @Override
@@ -191,9 +229,6 @@ public final class LivePreviewActivity extends AppCompatActivity
 
         try {
             switch (model) {
-
-
-
                 case FACE_CONTOUR:
                     Log.i(TAG, "Using Face Contour Detector Processor");
                     cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor(this.view));
@@ -305,9 +340,9 @@ public final class LivePreviewActivity extends AppCompatActivity
     public void onRequestPermissionsResult(
             int requestCode, String[] permissions, @NonNull int[] grantResults) {
         Log.i(TAG, "Permission granted!");
-        if (allPermissionsGranted()) {
+        //if (allPermissionsGranted()) {
             createCameraSource(selectedModel);
-        }
+        //}
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 

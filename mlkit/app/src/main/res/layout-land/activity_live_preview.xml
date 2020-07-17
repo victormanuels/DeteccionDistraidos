@@ -1,57 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fireTopLayout"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
     android:keepScreenOn="true">
 
-  <com.google.firebase.samples.apps.mlkit.common.CameraSourcePreview
-      android:id="@+id/firePreview"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <com.google.firebase.samples.apps.mlkit.common.GraphicOverlay
-        android:id="@+id/fireFaceOverlay"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-  </com.google.firebase.samples.apps.mlkit.common.CameraSourcePreview>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="450dp"
+            android:layout_height="match_parent">
 
-  <FrameLayout
-      android:id="@+id/control"
-      android:layout_width="220dp"
-      android:layout_height="match_parent"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentTop="true"
-      android:background="#000" >
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
-      <Spinner
-          android:id="@+id/spinner"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal" />
+            <com.google.firebase.samples.apps.mlkit.common.CameraSourcePreview
+                android:id="@+id/firePreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="-7dp"
+                tools:layout_editor_absoluteY="65dp">
 
-      <TextView android:id="@+id/text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:textColor="#FFF"
-          android:textSize="20sp"
-          android:textStyle="bold" />
+                <com.google.firebase.samples.apps.mlkit.common.GraphicOverlay
+                    android:id="@+id/fireFaceOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true" />
 
-      <ToggleButton
-          android:id="@+id/facingSwitch"
-          android:layout_width="48dp"
-          android:layout_height="48dp"
-          android:layout_gravity="bottom|end"
-          android:background="@layout/toggle_style"
-          android:textOff=""
-          android:textOn=""
-          android:checked="false" />
 
-  </FrameLayout>
+            </com.google.firebase.samples.apps.mlkit.common.CameraSourcePreview>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar" />
+
+            <Button
+                android:id="@+id/buttonInvisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remover Camara" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="59dp">
+
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteY="315dp">
+
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ToggleButton
+            android:id="@+id/facingSwitch"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center_vertical"
+            android:background="@layout/toggle_style"
+            android:checked="false"
+            android:textOff=""
+            android:textOn="" />
+
+
+    </LinearLayout>
 
 </RelativeLayout>

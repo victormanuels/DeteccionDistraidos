@@ -10,9 +10,6 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import com.google.firebase.samples.apps.mlkit.common.GraphicOverlay;
 import com.google.firebase.samples.apps.mlkit.common.GraphicOverlay.Graphic;
 
-/**
- * Graphic instance for rendering face contours graphic overlay view.
- */
 public class FaceContourGraphic extends Graphic {
 
     private static final float FACE_POSITION_RADIUS = 4.0f;

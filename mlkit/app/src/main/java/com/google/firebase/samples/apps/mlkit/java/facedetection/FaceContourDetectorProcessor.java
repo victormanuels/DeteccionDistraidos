@@ -1,18 +1,19 @@
 package com.google.firebase.samples.apps.mlkit.java.facedetection;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.RequiresApi;
 
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.util.UUID;
 
@@ -64,26 +65,25 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
                         .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                         .build();
+
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);
         this.view = view;
         barChart = (HorizontalBarChart) view.findViewById(R.id.barchart);
         final String uniqueId = UUID.randomUUID().toString();
 
 
-        Button buttonSave=(Button)view.findViewById(R.id.buttonSave);
+        Button buttonSave = (Button) view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
+try{
+    barChart.saveToGallery("test.png", 50);
 
-                    System.out.println("PERMISO");
-                }else{
-                    System.out.println("NO ");
+}catch (Exception e){
+    System.out.println(e);
+}
 
-                }
-
-                saveCSV(uniqueId);
                 saveBar(uniqueId);
             }
 
@@ -91,19 +91,24 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
         });
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void saveBar(String uniqueId) {
+        // view.requestPermissions(view.getApplicationContext(), WRITE_EXTERNAL_STORAGE, REQUEST_LOCATION);
+
     }
-    private void saveCSV(String uniqueId){
-        String csv = ( android.os.Environment.getExternalStorageDirectory() + "/"+uniqueId+".csv"); // Here csv file name is MyCsvFile.csv
+
+    private void saveCSV(String uniqueId) {
+        String csv = (android.os.Environment.getExternalStorageDirectory() + "/" + uniqueId + ".csv"); // Here csv file name is MyCsvFile.csv
         CSVWriter writer = null;
         try {
             writer = new CSVWriter(new FileWriter(csv));
 
             List<String[]> data = new ArrayList<String[]>();
-            data.add(new String[]{"Seconds","Color"});
+            data.add(new String[]{"Seconds", "Color"});
 
-            for(int i =0;i<seconds.size();i++){
-              data.add(new String[]{seconds.get(i)+"",colors.get(i)+""});
+            for (int i = 0; i < seconds.size(); i++) {
+                data.add(new String[]{seconds.get(i) + "", colors.get(i) + ""});
             }
 
             writer.writeAll(data); // data is adding to csv
@@ -184,7 +189,7 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
                 long segundos = (faceDetectTime.get(1) - faceDetectTime.get(0)) / 1000;
                 if (flag == false) {
                     flag = true;
-                    updateChart((float) segundos, Color.BLUE);
+                    updateChart((float) segundos, Color.rgb(0, 255, 0));
                 } else {
                     float valsF[] = entries.get(0).getYVals();
                     valsF[valsF.length - 1] = segundos;
@@ -219,7 +224,7 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
 
                 if (flag == false) {
                     flag = true;
-                    updateChart((float) segundos, Color.RED);
+                    updateChart((float) segundos, Color.rgb(255, 0, 0));
                 } else {
                     float valsF[] = entries.get(0).getYVals();
                     valsF[valsF.length - 1] = segundos;
@@ -227,30 +232,20 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
                     seconds.set((seconds.size() - 1), (float) segundos);
                     drawBar();
                 }
-
-
             } else {
                 faceNoDetectTime.add(System.currentTimeMillis());
             }
-
-
         } else {
             if (faceNoDetectTime.size() > 0) {
                 try {
-
                     faceNoDetectTime.clear();
                     flag = false;
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
             }
-
         }
-
-
         graphicOverlay.postInvalidate();
-
-
     }
 
     private void updateChart(float segundos, int color) {
